@@ -79,7 +79,8 @@ export default {
                 var app = this
                 axios({
                         method: 'post',
-                        url: 'http://localhost:8000/sentiment_api/',
+                        // url: 'http://localhost:8000/sentiment_api/',
+                        url: 'https://pol-tweet-sentiment-analysis.herokuapp.com/sentiment_api/',
                         data: {
                             tweets: this.tweets.split("\n")
                         }
