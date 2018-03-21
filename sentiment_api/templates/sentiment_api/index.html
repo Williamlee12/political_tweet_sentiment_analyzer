@@ -1,0 +1,8 @@
+<form action="{% url 'sentiment_api:index' %}" method="post">
+{% csrf_token %}
+
+<input type="text" placeholder="tweet" name="tweets" /><br><br>
+
+<input type="submit" value="Submit!" />
+
+</form>
