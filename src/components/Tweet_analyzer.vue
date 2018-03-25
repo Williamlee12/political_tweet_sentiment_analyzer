@@ -15,6 +15,14 @@
         </div>
         <br>
         <span><button @click="Loading(); SubmitTweets()" type="button" class="btn btn-primary">Submit!</button>&nbsp&nbsp{{loading}}</span>
+        <br>
+        <br>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="twitter handle" v-model="twitter_handle" />
+        </div>
+        <br>
+        <span><button @click="Loading1(); SubmitHandle()" type="button" class="btn btn-primary">Submit!</button>&nbsp&nbsp{{loading1}}</span>
+        <br>
     </div>
 
 
@@ -33,10 +41,10 @@
             <tbody>
                 <tr v-for="tweet in raw_ml_data">
                     <td>
-                      {{tweet[0]}}
+                        {{tweet[0]}}
                     </td>
                     <td>
-                      {{tweet[2]}}
+                        {{tweet[2]}}
                     </td>
                 </tr>
             </tbody>
@@ -59,7 +67,9 @@ export default {
                 display_results: false,
                 tweets: "",
                 loading: "",
+                loading1: "",
                 raw_ml_data: "",
+                twitter_handle: "",
 
             }
         },
@@ -75,6 +85,9 @@ export default {
             Loading: function() {
                 this.loading = "Loading..."
             },
+            Loading1: function() {
+                this.loading1 = "Loading..."
+            },
             SubmitTweets: function() {
                 var app = this
                 axios({
@@ -83,6 +96,21 @@ export default {
                         url: 'https://pol-tweet-sentiment-analysis.herokuapp.com/sentiment_api/',
                         data: {
                             tweets: this.tweets.split("\n")
+                        }
+                    })
+                    .then(function(response) {
+                        app.raw_ml_data = response.data
+                    });
+
+            },
+            SubmitHandle: function() {
+                var app = this
+                axios({
+                        method: 'post',
+                        // url: 'http://localhost:8000/sentiment_api/twitter/',
+                        url: 'https://pol-tweet-sentiment-analysis.herokuapp.com/sentiment_api/twitter/',
+                        data: {
+                            twitter_handle: this.twitter_handle
                         }
                     })
                     .then(function(response) {
